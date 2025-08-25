@@ -14,6 +14,15 @@ defmodule Example do
       end
     end
 
+    def tryRecursion(msg,n) when n>0 do
+      IO.puts(msg)
+      tryRecursion(msg,n-1)
+
+    end
+    def tryRecursion(msg,0) do
+      IO.puts("Recursion ends here")
+    end
+
 end
 
-Example.practice1()
+Example.tryRecursion("Shoaib Is The Best!!!",100)
