@@ -5,6 +5,15 @@ defmodule Example do
     IO.puts("Hello World")
     end
 
+    def practice1 do
+      name = "Shoaib"
+      membership = :gold
+
+      if membership == :gold do
+        IO.puts("Welcome back, #{name}! You are a #{membership} member.")
+      end
+    end
+
 end
 
-Example.main()
+Example.practice1()
