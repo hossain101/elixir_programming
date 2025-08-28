@@ -59,3 +59,54 @@ IO.puts("This is divider : #{divider.(32)}")
 IO.puts("This is ander : #{ander.(2)}")
 IO.puts("This is xorer : #{xorer.(3)}")
 IO.puts("This is combined : #{combined.(6)}")
+
+
+
+# Question 3
+
+
+defmodule SecretServer do
+  def start(initial_value) do
+    spawn(fn -> loop(initial_value) end)
+  end
+
+  defp loop(value) do
+    receive do
+      {:adder, sender} ->
+        updated = value + 1
+        send(sender, Secrets.secret_add(updated))
+        loop(updated)
+      {:subtracter, sender} ->
+        updated = value + 1
+        send(sender, Secrets.secret_subtractor(updated))
+        loop(updated)
+      {:multiplier, sender} ->
+        updated = value + 1
+        send(sender, Secrets.secret_multiply(updated))
+        loop(updated)
+      {:divider, sender} ->
+        updated = value + 1
+        send(sender, Secrets.secrete_divide(updated))
+        loop(updated)
+      {:and, sender} ->
+        updated = value + 1
+        send(sender, Secrets.secret_and(updated))
+        loop(updated)
+      {:xor, sender} ->
+        updated = value + 1
+        send(sender, Secrets.secret_xor(updated))
+        loop(updated)
+      {:combine, sender, f1, f2} ->
+        updated = value + 1
+        send(sender, Secrets.secret_combine(f1, f2))
+        loop(updated)
+    end
+  end
+end
+
+pid = SecretServer.start(5)
+send(pid, {:adder, self()})
+
+receive do
+  func -> IO.puts func.(2)  # => 7 (because 5 + 1 = 6, then 6 + 2 = 8)
+end
